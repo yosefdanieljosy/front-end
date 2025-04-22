@@ -1,0 +1,316 @@
+/*===============Google fonts===========================*/
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+/*==============Global==============*/
+* {
+    font-family: "Ubuntu", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --blue: #007bff;
+    --white: #fff;
+    --gray: #6c757d;
+    --black1: #222;
+    --black2: #999;
+    --nav-width: 250px;
+    --nav-collapsed-width: 80px;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: #f5f5f5;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    display: flex;
+}
+
+/*=====================Navigation=====================*/
+.Navigation {
+    position: fixed;
+    width: var(--nav-width);
+    height: 100vh;
+    background: var(--blue);
+    transition: all 0.5s ease;
+    overflow: hidden;
+    z-index: 100;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.Navigation.active {
+    width: var(--nav-collapsed-width);
+}
+
+.Navigation ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    margin: 0;
+}
+
+.Navigation ul li {
+    position: relative;
+    width: 100%;
+    list-style: none;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Brand name item */
+.Navigation ul li:first-child {
+    margin-bottom: 20px;
+    pointer-events: none;
+}
+
+/* Hover effects */
+.Navigation ul li:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.Navigation ul li:hover a {
+    color: var(--white);
+}
+
+.Navigation ul li.active {
+    background-color: var(--white);
+}
+
+.Navigation ul li.active a {
+    color: var(--blue);
+}
+
+/* Navigation links */
+.Navigation ul li a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    text-decoration: none;
+    color: var(--white);
+    transition: all 0.3s ease;
+}
+
+/* Icons */
+.Navigation ul li a .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+    height: 100%;
+}
+
+.Navigation ul li a .icon ion-icon {
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+/* Text labels */
+.Navigation ul li a .title {
+    position: relative;
+    height: 100%;
+    line-height: 50px;
+    white-space: nowrap;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: opacity 0.3s ease;
+}
+
+.Navigation.active ul li a .title {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Brand name styling */
+.Navigation ul li:first-child a .icon ion-icon {
+    font-size: 2rem;
+}
+.Navigation ul li:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.Navigation ul li:hover a {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.Navigation ul li:hover a .icon ion-icon {
+    transform: scale(1.2);
+    color: #ffffff;
+}
+
+
+.Navigation ul li:first-child a .title {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/*=================== Main Content ===================*/
+.main {
+    position: relative;
+    width: calc(100% - var(--nav-width));
+    min-height: 100vh;
+    margin-left: var(--nav-width);
+    background: var(--white);
+    transition: all 0.5s ease;
+}
+
+.main.active {
+    width: calc(100% - var(--nav-collapsed-width));
+    margin-left: var(--nav-collapsed-width);
+}
+
+.topbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background: var(--white);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 90;
+}
+
+/* Toggle Button */
+.toggle {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.toggle:hover {
+    background-color: rgba(0,0,0,0.1);
+}
+
+.toggle:active {
+    transform: scale(0.95);
+}
+
+/* Search Bar */
+.search {
+    position: relative;
+    width: 400px;
+    max-width: 50%;
+    margin: 0 20px;
+}
+
+.search label {
+    position: relative;
+    width: 100%;
+}
+
+.search label input {
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    padding: 5px 20px;
+    padding-left: 40px;
+    font-size: 0.9rem;
+    outline: none;
+    border: 1px solid var(--black2);
+    transition: all 0.3s ease;
+}
+
+.search label input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+.search label ion-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: var(--gray);
+}
+
+/* User Profile */
+.user {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.user:hover {
+    transform: scale(1.1);
+}
+
+.user img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .Navigation {
+        left: -100%;
+        width: var(--nav-width);
+    }
+    
+    .Navigation.active {
+        left: 0;
+        width: var(--nav-width);
+    }
+    
+    .main {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .main.active {
+        transform: translateX(var(--nav-width));
+    }
+    
+    .search {
+        width: 200px;
+    }
+}
+
+/* Overlay for mobile */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.Navigation.active + .overlay {
+    opacity: 1;
+    visibility: visible;
+}
