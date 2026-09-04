@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoseph Daniel — Functional Consultant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#101B2D;
+    --ink-soft:#1B2A42;
+    --paper:#F6F3EC;
+    --paper-dim:#EFEAE0;
+    --teal:#2F6E68;
+    --teal-light:#4A9089;
+    --brass:#C79A56;
+    --brass-light:#DDBA82;
+    --slate:#5B6B7A;
+    --white:#FFFFFF;
+    --line: rgba(16,27,45,0.12);
+    --line-dark: rgba(246,243,236,0.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.01em;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--brass);
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--brass);display:inline-block;}
+  ::selection{background:var(--brass-light);color:var(--ink);}
+  :focus-visible{outline:2px solid var(--teal);outline-offset:3px;}
+
+  /* NAV */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(246,243,236,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1120px;margin:0 auto;padding:18px 32px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .nav-brand{font-family:'Fraunces',serif;font-weight:600;font-size:18px;letter-spacing:-0.01em;}
+  .nav-brand span{color:var(--teal);}
+  .nav-links{display:flex;gap:28px;font-size:13px;letter-spacing:0.03em;}
+  .nav-links a{
+    color:var(--slate);position:relative;padding-bottom:2px;
+    transition:color .2s ease;
+  }
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;
+    border:1px solid var(--ink);padding:8px 16px;border-radius:2px;
+    transition:background .2s ease,color .2s ease;
+  }
+  .nav-cta:hover{background:var(--ink);color:var(--paper);}
+  .nav-toggle{display:none;background:none;border:none;cursor:pointer;color:var(--ink);}
+
+  /* HERO */
+  .hero{
+    background:var(--ink);
+    color:var(--paper);
+    padding:90px 0 70px;
+    position:relative;
+    overflow:hidden;
+    border-bottom:1px solid var(--line-dark);
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(var(--line-dark) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-dark) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.35;
+    mask-image:radial-gradient(ellipse at top left, black, transparent 70%);
+  }
+  .hero-inner{
+    position:relative;z-index:1;
+    display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:center;
+  }
+  .hero-eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;
+    text-transform:uppercase;color:var(--brass-light);
+    display:flex;align-items:center;gap:10px;margin-bottom:22px;
+  }
+  .hero-eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--teal-light);
+    box-shadow:0 0 0 4px rgba(74,144,137,0.25);}
+  .hero h1{
+    font-size:clamp(38px,5vw,58px);
+    line-height:1.05;
+    font-weight:500;
+    color:var(--white);
+    margin-bottom:22px;
+  }
+  .hero h1 em{
+    font-style:italic;color:var(--brass-light);font-weight:400;
+  }
+  .hero p.lead{
+    font-size:17px;color:#C7CEDA;max-width:480px;margin-bottom:34px;
+  }
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.02em;
+    padding:13px 22px;border-radius:2px;display:inline-flex;align-items:center;gap:8px;
+    transition:all .2s ease;border:1px solid transparent;
+  }
+  .btn-primary{background:var(--brass);color:var(--ink);}
+  .btn-primary:hover{background:var(--brass-light);}
+  .btn-ghost{border:1px solid rgba(246,243,236,0.35);color:var(--paper);}
+  .btn-ghost:hover{border-color:var(--paper);background:rgba(246,243,236,0.06);}
+
+  /* SYSTEM PANEL (signature element) */
+  .panel{
+    background:var(--ink-soft);
+    border:1px solid var(--line-dark);
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
+  }
+  .panel-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 18px;border-bottom:1px solid var(--line-dark);
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8FA0B3;letter-spacing:0.06em;
+  }
+  .panel-dots{display:flex;gap:6px;}
+  .panel-dots span{width:8px;height:8px;border-radius:50%;background:#3A4C66;}
+  .panel-body{padding:6px;}
+  .module-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:13px 14px;border-radius:4px;
+    transition:background .2s ease;
+  }
+  .module-row:hover{background:rgba(255,255,255,0.03);}
+  .module-left{display:flex;align-items:center;gap:12px;}
+  .module-code{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6E819B;
+    width:38px;
+  }
+  .module-name{font-size:14px;color:#E7EAF0;font-weight:500;}
+  .module-status{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;
+    color:var(--teal-light);display:flex;align-items:center;gap:6px;
+  }
+  .module-status::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--teal-light);
+    box-shadow:0 0 0 3px rgba(74,144,137,0.2);}
+  .panel-foot{
+    padding:12px 18px;border-top:1px solid var(--line-dark);
+    font-family:'IBM Plex Mono',monospace;font-size:10px;color:#5E7086;
+    display:flex;justify-content:space-between;
+  }
+
+  /* SECTION SHARED */
+  section{padding:96px 0;}
+  .section-head{max-width:640px;margin-bottom:52px;}
+  .section-head h2{font-size:clamp(28px,3.4vw,38px);font-weight:500;}
+  .section-head p{color:var(--slate);margin-top:14px;font-size:15.5px;}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:64px;align-items:start;}
+  .about-photo{
+    aspect-ratio:4/5;background:linear-gradient(160deg,var(--ink),var(--teal) 140%);
+    border-radius:6px;position:relative;overflow:hidden;
+    display:flex;align-items:end;padding:24px;
+  }
+  .about-photo::after{
+    content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(16,27,45,0.15) 1px, transparent 1px),linear-gradient(90deg, rgba(16,27,45,0.15) 1px, transparent 1px);
+    background-size:28px 28px;
+  }
+  .about-photo-label{
+    position:relative;z-index:1;color:var(--paper);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;
+  }
+  .about-copy p{color:var(--ink);opacity:0.85;margin-bottom:18px;font-size:16px;}
+  .about-facts{
+    display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:32px;
+    padding-top:28px;border-top:1px solid var(--line);
+  }
+  .fact-label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--slate);margin-bottom:6px;}
+  .fact-value{font-size:15px;font-weight:600;}
+
+  /* SKILLS */
+  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;}
+  .skill-card{background:var(--paper);padding:32px 28px;}
+  .skill-card h3{font-size:15px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;color:var(--teal);margin-bottom:20px;}
+  .skill-card ul{list-style:none;}
+  .skill-card li{
+    font-size:14.5px;padding:9px 0;border-top:1px solid var(--line);color:var(--ink);
+    display:flex;align-items:center;gap:10px;
+  }
+  .skill-card li:first-child{border-top:none;}
+  .skill-card li::before{content:"—";color:var(--brass);}
+
+  /* EXPERIENCE */
+  .timeline{border-left:1px solid var(--line);padding-left:36px;position:relative;}
+  .tl-item{position:relative;padding-bottom:52px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:"";position:absolute;left:-41px;top:4px;width:10px;height:10px;border-radius:50%;
+    background:var(--paper);border:2px solid var(--teal);
+  }
+  .tl-date{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--brass);letter-spacing:0.05em;margin-bottom:8px;}
+  .tl-item h3{font-size:20px;margin-bottom:2px;}
+  .tl-company{color:var(--slate);font-size:14.5px;margin-bottom:14px;}
+  .tl-item ul{padding-left:0;list-style:none;}
+  .tl-item li{font-size:15px;color:var(--ink);opacity:0.85;padding:5px 0;padding-left:18px;position:relative;}
+  .tl-item li::before{content:"•";position:absolute;left:0;color:var(--teal);}
+
+  /* PROJECTS */
+  .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+  .project-card{
+    background:var(--white);border:1px solid var(--line);border-radius:6px;padding:32px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .project-card:hover{border-color:var(--teal);transform:translateY(-2px);}
+  .project-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;
+    color:var(--brass);margin-bottom:14px;display:block;
+  }
+  .project-card h3{font-size:21px;margin-bottom:10px;}
+  .project-card p{color:var(--slate);font-size:14.5px;margin-bottom:18px;}
+  .project-meta{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;background:var(--paper-dim);
+    padding:5px 10px;border-radius:3px;color:var(--ink);
+  }
+
+  /* SERVICES */
+  .services-list{border-top:1px solid var(--line);}
+  .service-row{
+    display:grid;grid-template-columns:60px 1fr 1fr;gap:24px;align-items:center;
+    padding:24px 0;border-bottom:1px solid var(--line);
+  }
+  .service-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--brass);}
+  .service-row h3{font-size:19px;font-weight:500;}
+  .service-row p{color:var(--slate);font-size:14.5px;}
+
+  /* EDUCATION */
+  .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .edu-card{background:var(--ink);color:var(--paper);padding:30px;border-radius:6px;}
+  .edu-card .eyebrow{color:var(--brass-light);}
+  .edu-card h3{font-size:19px;margin-bottom:6px;color:var(--white);}
+  .edu-card p{color:#B9C2CF;font-size:14px;}
+
+  /* CONTACT */
+  .contact{background:var(--ink);color:var(--paper);}
+  .contact .section-head p{color:#C7CEDA;}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
+  .contact-links{display:flex;flex-direction:column;gap:2px;margin-top:8px;}
+  .contact-links a{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 0;border-bottom:1px solid var(--line-dark);
+    font-size:16px;transition:padding-left .2s ease,color .2s ease;
+  }
+  .contact-links a:hover{padding-left:8px;color:var(--brass-light);}
+  .contact-links span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8FA0B3;}
+  .contact-form{display:flex;flex-direction:column;gap:16px;}
+  .contact-form input, .contact-form textarea{
+    background:var(--ink-soft);border:1px solid var(--line-dark);color:var(--paper);
+    padding:14px 16px;border-radius:4px;font-family:'Inter',sans-serif;font-size:14px;
+  }
+  .contact-form textarea{resize:vertical;min-height:110px;}
+  .contact-form input::placeholder,.contact-form textarea::placeholder{color:#6E819B;}
+  .contact-form button{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;background:var(--brass);color:var(--ink);
+    border:none;padding:14px;border-radius:4px;cursor:pointer;transition:background .2s ease;
+  }
+  .contact-form button:hover{background:var(--brass-light);}
+
+  footer{
+    background:var(--ink);color:#7E8FA3;border-top:1px solid var(--line-dark);
+    padding:26px 0;font-family:'IBM Plex Mono',monospace;font-size:12px;
+  }
+  .footer-inner{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+
+  @media (max-width:860px){
+    .nav-links{display:none;}
+    .hero-inner{grid-template-columns:1fr;}
+    .about-grid{grid-template-columns:1fr;}
+    .about-photo{aspect-ratio:16/9;}
+    .skills-grid{grid-template-columns:1fr;}
+    .projects-grid{grid-template-columns:1fr;}
+    .service-row{grid-template-columns:40px 1fr;}
+    .service-row p{grid-column:2/3;}
+    .edu-grid{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;gap:36px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">Yoseph <span>Daniel</span></div>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="nav-cta">Download CV</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="hero-eyebrow">Available for engagements — Addis Ababa, ET</div>
+      <h1>Functional Consultant for <em>ERP & Hospitality</em> systems.</h1>
+      <p class="lead">I help hotels and growing businesses implement, configure, and optimize the systems that run their operations — from PMS and RMS to Finance and HR.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+        <a href="#contact" class="btn btn-ghost">Contact Me</a>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head">
+        <span>SYSTEM_STATUS.LOG</span>
+        <div class="panel-dots"><span></span><span></span><span></span></div>
+      </div>
+      <div class="panel-body">
+        <div class="module-row"><div class="module-left"><span class="module-code">01</span><span class="module-name">PMS</span></div><span class="module-status">CONFIGURED</span></div>
+        <div class="module-row"><div class="module-left"><span class="module-code">02</span><span class="module-name">RMS / POS</span></div><span class="module-status">CONFIGURED</span></div>
+        <div class="module-row"><div class="module-left"><span class="module-code">03</span><span class="module-name">Finance</span></div><span class="module-status">CONFIGURED</span></div>
+        <div class="module-row"><div class="module-left"><span class="module-code">04</span><span class="module-name">Inventory</span></div><span class="module-status">CONFIGURED</span></div>
+        <div class="module-row"><div class="module-left"><span class="module-code">05</span><span class="module-name">HRMS</span></div><span class="module-status">CONFIGURED</span></div>
+        <div class="module-row"><div class="module-left"><span class="module-code">06</span><span class="module-name">F&amp;B</span></div><span class="module-status">CONFIGURED</span></div>
+      </div>
+      <div class="panel-foot"><span>6 MODULES</span><span>UAT: PASSED</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about-photo">
+      <div class="about-photo-label">YOSEPH_DANIEL.PROFILE</div>
+    </div>
+    <div class="about-copy">
+      <div class="eyebrow">About</div>
+      <h2 style="font-size:32px;margin-bottom:20px;">A consultant who bridges business needs and system configuration.</h2>
+      <p>I'm a Functional Consultant with a background in Software Engineering, specializing in ERP implementation and hospitality management systems. I work directly with clients to understand how their business actually runs, then translate that into configured, tested, and trained-on systems.</p>
+      <p>My strength is sitting between the technical and the operational — I can read requirements like a business analyst and configure systems like an engineer, which means fewer gaps between what a client asks for and what gets delivered.</p>
+      <div class="about-facts">
+        <div><div class="fact-label">Based in</div><div class="fact-value">Addis Ababa, Ethiopia</div></div>
+        <div><div class="fact-label">Role</div><div class="fact-value">Functional Consultant</div></div>
+        <div><div class="fact-label">Focus</div><div class="fact-value">ERP & Hospitality Systems</div></div>
+        <div><div class="fact-label">Education</div><div class="fact-value">BSc Software Engineering</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" style="background:var(--paper-dim);">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Skills</div>
+      <h2>What I bring to an implementation.</h2>
+      <p>Grouped by how they show up in a project — business analysis, technical support, and domain-specific systems knowledge.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>ERP & Business</h3>
+        <ul>
+          <li>ERP Implementation</li>
+          <li>Business Process Analysis</li>
+          <li>Requirements Gathering</li>
+          <li>System Configuration</li>
+          <li>User Training</li>
+          <li>Testing & UAT</li>
+          <li>Client Support</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Technical</h3>
+        <ul>
+          <li>SQL</li>
+          <li>JavaScript</li>
+          <li>React</li>
+          <li>HTML / CSS</li>
+          <li>Git</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Hospitality Systems</h3>
+        <ul>
+          <li>PMS</li>
+          <li>RMS / POS</li>
+          <li>Inventory</li>
+          <li>Finance</li>
+          <li>HRMS</li>
+          <li>F&amp;B</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Experience</div>
+      <h2>Career history.</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">2025 — Present</div>
+        <h3>Functional Consultant</h3>
+        <div class="tl-company">Red Cloud ICT Solution</div>
+        <ul>
+          <li>ERP implementation and configuration for client environments</li>
+          <li>Client requirement analysis and process mapping</li>
+          <li>Support across PMS, RMS, Finance, and HRMS modules</li>
+          <li>End-user training and onboarding</li>
+          <li>Troubleshooting, testing, and system quality assurance</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" style="background:var(--paper-dim);">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Projects</div>
+      <h2>Selected implementations.</h2>
+      <p>A closer look at the systems I've configured, tested, and supported end to end.</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <span class="project-tag">Hospitality ERP</span>
+        <h3>Hotel ERP Implementation</h3>
+        <p>Full-scope implementation for a hotel client, covering configuration, testing, training, and post-launch support across core operational modules.</p>
+        <div class="project-meta">
+          <span class="chip">PMS(Property Management System)</span>
+          <span class="chip">RMS(Restaurant Management System)</span>
+          <span class="chip">Finance or Accounting</span>
+          <span class="chip">Inventory</span>
+          <span class="chip">HRMS(Human Resource Management System)</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <span class="project-tag">Process Analysis</span>
+        <h3>Business Requirements & Configuration</h3>
+        <p>Gathered and mapped client business processes into system configuration specs, then validated the setup through structured UAT cycles.</p>
+        <div class="project-meta">
+          <span class="chip">Requirements Gathering and Analysis</span>
+          <span class="chip">UAT(User Acceptance Testing)</span>
+          <span class="chip">System Configuration</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Services</div>
+      <h2>How I can help.</h2>
+    </div>
+    <div class="services-list">
+      <div class="service-row">
+        <span class="service-num">01</span>
+        <h3>ERP Implementation</h3>
+        <p>End-to-end setup, from discovery through go-live.</p>
+      </div>
+      <div class="service-row">
+        <span class="service-num">02</span>
+        <h3>System Configuration</h3>
+        <p>Tailoring modules to match real operational workflows.</p>
+      </div>
+      <div class="service-row">
+        <span class="service-num">03</span>
+        <h3>Business Process Analysis</h3>
+        <p>Mapping how a business runs before touching a system.</p>
+      </div>
+      <div class="service-row">
+        <span class="service-num">04</span>
+        <h3>User Training</h3>
+        <p>Getting teams confident and self-sufficient on new tools.</p>
+      </div>
+      <div class="service-row">
+        <span class="service-num">05</span>
+        <h3>Testing & Support</h3>
+        <p>Structured UAT, troubleshooting, and ongoing client support.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" style="background:var(--paper-dim);">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Education & Certifications</div>
+      <h2>Foundation.</h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="eyebrow">Degree</div>
+        <h3>BSc, Software Engineering</h3>
+        <p>Arba Minch University</p>
+      </div>
+      <div class="edu-card">
+        <div class="eyebrow">Training</div>
+        <h3>ERP & IT Systems Training</h3>
+        <p>Add your relevant certifications here</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Contact</div>
+      <h2>Let's talk about your systems.</h2>
+      <p>Whether it's a new implementation or support on an existing setup, I'm happy to have a conversation.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-links">
+        <a href="mailto:yosephdaniel174@gmail.com"><span>Email</span> yosephdaniel174@gmail.com</a>
+        <a href="tel:+251955322574"><span>Phone</span> +251 95 532 2574</a>
+        <a href="https://www.linkedin.com/in/yoseph-daniel-7a02b3417?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank"><span>LinkedIn</span> https://www.linkedin.com/in/yoseph-daniel-7a02b3417?utm_source=share_via&utm_content=profile&utm_medium=member_android</a>
+        <a href="https://github.com/yosephdaniel" target="_blank"><span>GitHub</span> github.com/yosephdaniel</a>
+        <a href="#"><span>Location</span> Addis Ababa, Ethiopia</a>
+      </div>
+      <form class="contact-form">
+        <input type="text" placeholder="Name" />
+        <input type="email" placeholder="Email" />
+        <textarea placeholder="Tell me about your project"></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>© 2026 Yoseph Daniel Abera</span>
+    <span>Functional Consultant — ERP &amp; Business Systems</span>
+  </div>
+</footer>
+
+</body>
+</html>
